@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+import { Note } from "../../model/note.model";
+import { NewNotePage } from "../new-note/new-note";
+import { NotesService } from "../../services/notes.service";
+import { NotePage } from "../note/note";
 
 @Component({
   selector: 'page-home',
@@ -7,8 +11,76 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  notes: Note[] = [];
+  viewAllNotes = false;
+  dateFilter: string;
 
+  constructor(public navCtrl: NavController, private notesService: NotesService, public modalCtrl: ModalController) {
+    this.initDateFilter()
   }
 
+  // View will enter
+  ionViewWillEnter() {
+    this.refreshPage();
+  }
+
+  // Refresh data
+  refreshPage() {
+    if (this.viewAllNotes)
+      this.notesService.getAllNotes().then((notes) => this.notes = notes);
+    else
+      this.notesService.getAllNotesToSpecificDate(this.ISOStringToDate(this.dateFilter)).then((notes) => this.notes = notes)
+  }
+
+  // Set date filter to today
+  initDateFilter() {
+    this.dateFilter = new Date(Date.now()).toISOString();
+  }
+
+  // Load NewNotePage
+  onLoadNewNotePage() {
+    this.navCtrl.push(NewNotePage, { createdDate: this.ISOStringToDate(this.dateFilter) });
+  }
+
+  // Switch views
+  onClickViewByDate() {
+    this.viewAllNotes = false;
+    this.refreshPage();
+  }
+
+  // Set date to today and show results
+  onClickViewToday() {
+    this.viewAllNotes = false;
+    this.initDateFilter();
+  }
+
+  // Release date filter and show all results
+  onClickViewAll() {
+    this.viewAllNotes = true;
+    this.refreshPage();
+  }
+
+  // Check note 
+  onCheckNote(note: Note) {
+    this.notesService.checkNote(note, this.ISOStringToDate(this.dateFilter)).then((data) => this.refreshPage());
+  }
+
+  // Delete note
+  onDeleteNote(note: Note) {
+    this.notesService.deleteNote(note).then((data) => this.refreshPage());
+  }
+
+  // Open detail page for note copy
+  onOpenNote(note: Note) {
+    this.navCtrl.push(NotePage, note);
+  }
+
+  // Other functions
+  ISOStringToDate(inputStr: string) {
+    return new Date(
+      new Date(inputStr).getFullYear(),
+      new Date(inputStr).getMonth(),
+      new Date(inputStr).getDate()
+    );
+  }
 }

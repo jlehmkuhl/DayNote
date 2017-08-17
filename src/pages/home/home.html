@@ -1,5 +1,15 @@
 <ion-header>
   <ion-navbar>
+    <!--Navbar buttons begin-->
+    <ion-buttons end>
+      <button ion-button (click)="onClickViewAll()" *ngIf="viewAllNotes == false">Alle</button>
+      <button ion-button (click)="onClickViewByDate()" *ngIf="viewAllNotes == true">Nach Datum</button>
+      <button ion-button (click)="onClickViewToday()">Heute</button>
+      <button ion-button icon-only (click)="onLoadNewNotePage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!--Navbar buttons end-->
     <ion-title>
       DayNote
     </ion-title>
@@ -7,5 +17,33 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>Es kann nun mit der Entwicklung gestartet werden!</h1>
+  <!--Filter begin-->
+  <ion-item>
+    <ion-label>Filter</ion-label>
+    <ion-datetime [(ngModel)]="dateFilter" (ionChange)="refreshPage()"></ion-datetime>
+  </ion-item>
+  <!--Filter end-->
+
+  <!--Note list begin-->
+  <ion-list>
+    <ion-item-sliding *ngFor="let note of notes">
+      <button ion-item (click)="onOpenNote(note)">
+        <p class="note" *ngIf="note.finishedDate == null">{{note.content}}</p>
+        <s class="note" *ngIf="note.finishedDate != null">{{note.content}}</s>
+      </button>
+      <!--Item sliding options begin-->
+      <ion-item-options side="left">
+        <button icon-only ion-button (click)="onCheckNote(note)">
+            <ion-icon name="checkmark" ></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button icon-only ion-button (click)="onDeleteNote(note)" color="danger">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+      <!--Item sliding options begin-->
+    </ion-item-sliding>
+  </ion-list>
+  <!--Note list end-->
 </ion-content>

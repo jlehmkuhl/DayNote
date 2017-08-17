@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--Submit form begin-->
+    <ion-item>
+      <ion-label>Inhalt</ion-label>
+      <ion-input type="text" name="content" [(ngModel)]="note.content" required></ion-input>
+    </ion-item>
+    <button ion-button block (click)="onSave()">Speichern</button>
+  <!--Submit form end-->
+</ion-content>
