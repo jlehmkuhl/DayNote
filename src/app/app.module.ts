@@ -9,14 +9,12 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { NewNotePage } from "../pages/new-note/new-note";
 import { NotesService } from "../services/notes.service";
-import { NotePage } from "../pages/note/note";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     NewNotePage, // Added new Page
-    NotePage // Added new Page
   ],
   imports: [
     BrowserModule,
@@ -28,7 +26,6 @@ import { NotePage } from "../pages/note/note";
     MyApp,
     HomePage,
     NewNotePage, // Added new Page
-    NotePage // Added new Page
   ],
   providers: [
     StatusBar,

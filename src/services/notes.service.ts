@@ -42,19 +42,11 @@ export class NotesService {
         return this.storage.set(this.notesKey, this.notes);
     }
 
-    // Add new note
+    // Add delete note
     deleteNote(note: Note) {
         var index = this.notes.indexOf(note);
         if (index > - 1)
             this.notes.splice(index, 1);
-        return this.storage.set(this.notesKey, this.notes);
-    }
-
-    // Update
-    updateNote(note: Note) {
-        var index = this.notes.indexOf(note);
-        if (index > -1)
-            this.notes[index].content = note.content;
         return this.storage.set(this.notesKey, this.notes);
     }
 

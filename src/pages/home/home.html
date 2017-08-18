@@ -27,10 +27,10 @@
   <!--Note list begin-->
   <ion-list>
     <ion-item-sliding *ngFor="let note of notes">
-      <button ion-item (click)="onOpenNote(note)">
+      <ion-item>
         <p class="note" *ngIf="note.finishedDate == null">{{note.content}}</p>
         <s class="note" *ngIf="note.finishedDate != null">{{note.content}}</s>
-      </button>
+      </ion-item>
       <!--Item sliding options begin-->
       <ion-item-options side="left">
         <button icon-only ion-button (click)="onCheckNote(note)">

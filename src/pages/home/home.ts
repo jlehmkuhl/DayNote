@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { Note } from "../../model/note.model";
 import { NewNotePage } from "../new-note/new-note";
 import { NotesService } from "../../services/notes.service";
-import { NotePage } from "../note/note";
 
 @Component({
   selector: 'page-home',
@@ -15,7 +14,7 @@ export class HomePage {
   viewAllNotes = false;
   dateFilter: string;
 
-  constructor(public navCtrl: NavController, private notesService: NotesService, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, private notesService: NotesService) {
     this.initDateFilter()
   }
 
@@ -68,11 +67,6 @@ export class HomePage {
   // Delete note
   onDeleteNote(note: Note) {
     this.notesService.deleteNote(note).then((data) => this.refreshPage());
-  }
-
-  // Open detail page for note copy
-  onOpenNote(note: Note) {
-    this.navCtrl.push(NotePage, note);
   }
 
   // Other functions
