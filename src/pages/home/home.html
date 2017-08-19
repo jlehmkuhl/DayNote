@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <!--Navbar buttons begin-->
+    <!--Navbar buttons BEGIN-->
     <ion-buttons end>
       <button ion-button (click)="onClickViewAll()" *ngIf="viewAllNotes == false">Alle</button>
       <button ion-button (click)="onClickViewByDate()" *ngIf="viewAllNotes == true">Nach Datum</button>
@@ -9,7 +9,7 @@
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
-    <!--Navbar buttons end-->
+    <!--Navbar buttons END-->
     <ion-title>
       DayNote
     </ion-title>
@@ -17,21 +17,21 @@
 </ion-header>
 
 <ion-content padding>
-  <!--Filter begin-->
+  <!--Filter BEGIN-->
   <ion-item>
     <ion-label>Filter</ion-label>
     <ion-datetime [(ngModel)]="dateFilter" (ionChange)="refreshPage()"></ion-datetime>
   </ion-item>
-  <!--Filter end-->
+  <!--Filter END-->
 
-  <!--Note list begin-->
+  <!--Note list BEGIN-->
   <ion-list>
     <ion-item-sliding *ngFor="let note of notes">
       <ion-item>
         <p class="note" *ngIf="note.finishedDate == null">{{note.content}}</p>
         <s class="note" *ngIf="note.finishedDate != null">{{note.content}}</s>
       </ion-item>
-      <!--Item sliding options begin-->
+      <!--Item sliding options BEGIN-->
       <ion-item-options side="left">
         <button icon-only ion-button (click)="onCheckNote(note)">
             <ion-icon name="checkmark" ></ion-icon>
@@ -42,8 +42,8 @@
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
-      <!--Item sliding options begin-->
+      <!--Item sliding options END-->
     </ion-item-sliding>
   </ion-list>
-  <!--Note list end-->
+  <!--Note list END-->
 </ion-content>

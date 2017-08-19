@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Note } from "../../model/note.model";
 import { NewNotePage } from "../new-note/new-note";
 import { NotesService } from "../../services/notes.service";
+
+// ISSUE#1 DayNote 1.0.1 jlehmkuhl 19.08.2017
+//  - Added event listener "resume" to update the list when resuming the app.
 
 @Component({
   selector: 'page-home',
@@ -15,7 +18,12 @@ export class HomePage {
   dateFilter: string;
 
   constructor(public navCtrl: NavController, private notesService: NotesService) {
-    this.initDateFilter()
+    // ISSUE#1 BEGIN
+    document.addEventListener('resume', () => {
+      this.initDateFilter();
+    });
+    // ISSUE#1 END
+    this.initDateFilter();
   }
 
   // View will enter
