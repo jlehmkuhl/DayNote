@@ -16,8 +16,9 @@ export class HomePage {
   notes: Note[] = [];
   viewAllNotes = false;
   dateFilter: string;
+  selectedTab = 0;
 
-  constructor(public navCtrl: NavController, private notesService: NotesService) {
+  constructor(public navCtrl: NavController, public notesService: NotesService) {
     // ISSUE#1 BEGIN
     document.addEventListener('resume', () => {
       this.initDateFilter();
@@ -36,7 +37,7 @@ export class HomePage {
     if (this.viewAllNotes)
       this.notesService.getAllNotes().then((notes) => this.notes = notes);
     else
-      this.notesService.getAllNotesToSpecificDate(this.ISOStringToDate(this.dateFilter)).then((notes) => this.notes = notes)
+      this.notesService.getAllNotesToSpecificDate(this.ISOStringToDate(this.dateFilter), this.selectedTab).then((notes) => this.notes = notes)
   }
 
   // Set date filter to today
@@ -46,7 +47,7 @@ export class HomePage {
 
   // Load NewNotePage
   onLoadNewNotePage() {
-    this.navCtrl.push(NewNotePage, { createdDate: this.ISOStringToDate(this.dateFilter) });
+    this.navCtrl.push(NewNotePage, { createdDate: this.ISOStringToDate(this.dateFilter), selectedTab: this.selectedTab });
   }
 
   // Switch views

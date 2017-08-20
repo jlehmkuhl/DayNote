@@ -22,16 +22,16 @@ export class NotesService {
     }
 
     // Get all notes to a specific date
-    getAllNotesToSpecificDate(inputDate: Date) {
+    getAllNotesToSpecificDate(inputDate: Date, selectedTab) {
         return this.storage.get(this.notesKey)
             .then(
             (notes) => {
                 this.notes = notes == null ? [] : notes;
                 return this.notes.slice().filter(
-                    (note) =>
+                    (note) => (selectedTab == note.type || (selectedTab == 0 && note.type == null)) && (
                         (new Date(note.createdDate).getTime() <= new Date(inputDate).getTime()) &&
                         (note.finishedDate == null || new Date(note.finishedDate).getTime() == new Date(inputDate).getTime()) ||
-                        (new Date(note.createdDate).getTime() == new Date(inputDate).getTime())
+                        (new Date(note.createdDate).getTime() == new Date(inputDate).getTime()))
                 );
             });
     }
