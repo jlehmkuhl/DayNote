@@ -5,9 +5,10 @@
       <button ion-button (click)="onClickViewAll()" *ngIf="viewAllNotes == false">Alle</button>
       <button ion-button (click)="onClickViewByDate()" *ngIf="viewAllNotes == true">Nach Datum</button>
       <button ion-button (click)="onClickViewToday()">Heute</button>
-      <button ion-button icon-only (click)="onLoadNewNotePage()">
+      <!--Add button moved to FABs-->
+      <!-- <button ion-button icon-only (click)="onLoadNewNotePage()">
         <ion-icon name="add"></ion-icon>
-      </button>
+      </button> -->
     </ion-buttons>
     <!--Navbar buttons END-->
     <ion-title>
@@ -17,6 +18,11 @@
 </ion-header>
 
 <ion-content padding>
+  <!--FABs BEGIN-->
+  <ion-fab right bottom padding>
+    <button ion-fab (click)="onLoadNewNotePage()" icon-only><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  <!--FABs END-->
   <!--Filter BEGIN-->
   <ion-item>
     <ion-label>Filter</ion-label>
