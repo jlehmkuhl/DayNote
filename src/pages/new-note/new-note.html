@@ -5,6 +5,12 @@
 </ion-header>
 
 <ion-content padding>
+  <!--FABs BEGIN-->
+  <ion-fab right bottom padding>
+    <button ion-fab (click)="onStartListening()" *ngIf="isIOS() == false || isRecording == false" icon-only><ion-icon name="microphone"></ion-icon></button>
+    <button ion-fab (click)="onStopListening()" *ngIf="isIOS() && isRecording == true" icon-only><ion-icon name="mic-off" color="danger"></ion-icon></button>
+  </ion-fab>
+  <!--FABs END-->
   <!--Submit form BEGIN-->
   <form (ngSubmit)="onAddNote(f.value)" #f="ngForm">
     <ion-item>
@@ -14,4 +20,7 @@
     <button ion-button block type="submit" [disabled]="!f.valid">Hinzufügen</button>
   </form>
   <!--Submit form END-->
+  <p class="infoText" *ngIf="isIOS() && isRecording == true">Es wird zugehört..</p>
+  <p class="infoText" *ngIf="isIOS() && isRecording == true">Zum Beenden der Aufnahme wiederholt auf das Mikrofone klicken!</p>
+
 </ion-content>
