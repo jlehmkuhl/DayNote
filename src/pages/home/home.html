@@ -5,10 +5,11 @@
       <button ion-button (click)="onClickViewAll()" *ngIf="viewAllNotes == false">Alle</button>
       <button ion-button (click)="onClickViewByDate()" *ngIf="viewAllNotes == true">Nach Datum</button>
       <button ion-button (click)="onClickViewToday()">Heute</button>
-      <!--Add button moved to FABs-->
-      <!-- <button ion-button icon-only (click)="onLoadNewNotePage()">
-        <ion-icon name="add"></ion-icon>
-      </button> -->
+      <button ion-button icon-only menuToogle>
+        <ion-icon name="more"></ion-icon>
+      </button>
+      
+  
     </ion-buttons>
     <!--Navbar buttons END-->
     <ion-title>
